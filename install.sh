@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Create user
+adduser marlon
+
+# Add to windows terminal profile settings: 
+# "commandline": "wsl.exe -d Ubuntu-18.04 -u marlon"
+# "startingDirectory": "//wsl$/Ubuntu-18.04/home/marlon/"
+# Add to /etc/sudoers
+# under:
+# root    ALL=(ALL:ALL) ALL
+# marlon  ALL=(ALL:ALL) ALL
+
 # Install common bins
 apt-get update \
       && apt-get install -y apt-transport-https \
@@ -37,13 +48,13 @@ sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gp
 apt-get update
 apt-get install code -y
 
-# Install Zsh
-apt-get install zsh -y
+# Install zsh and tmux
+apt-get install zsh tmux -y
 apt-get install powerline fonts-powerline -y
 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 chsh -s $(which zsh)
 echo "alias k=kubectl" >> ~/.zshrc
 echo "bindkey -v" >> ~/.zshrc
+echo "source <(kubectl completion zsh)" >> ~/.zshrc
 
-## Add user?
